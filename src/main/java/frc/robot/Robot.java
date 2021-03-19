@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   // Input and Ouput
   public static OI m_oi;
 
-  Command m_autonomousCommand, autoRightStartCommand, autoLeftStartCommand;
+  Command m_autonomousCommand, autoRightStartCommand, autoLeftStartCommand, autoSlalom, autoBarrel;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   UsbCamera camera1;
@@ -217,8 +217,104 @@ public class Robot extends TimedRobot {
       }
     };
 
+
+    autoSlalom = new Command(){  
+      @Override
+      protected boolean isFinished() {
+        // TODO Auto-generated method stub
+        return false;
+      }
+      @Override
+      protected void execute() {
+        //Declare and initialize driveCart time intervals
+        double[] n = {0.11,0.325,0.65,0.505,0.38,0.52,0.65,0.47};
+        for(int i=0; i<n.length; i++){
+          n[i] *= 2;
+        }
+
+        double speed = 0.25;
+
+        double cT = t.get();
+      
+        if (cT > 0 && cT < n[0]) {
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        else if (cT > n[0] && cT < n[0]+n[1]) {
+          robotDrive.driveCartesian(-speed, speed, 0);
+        }
+        else if (cT > n[0]+n[1] && cT < n[0]+n[1]+n[2]) {
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        else if (cT > n[0]+n[1]+n[2] && cT < n[0]+n[1]+n[2]+n[3]) {
+          robotDrive.driveCartesian(speed, speed, 0);
+        }
+        else if (cT > n[0]+n[1]+n[2]+n[3] && cT < n[0]+n[1]+n[2]+n[3]+n[4]) {
+          robotDrive.driveCartesian(-speed, 0, 0);
+        }
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]) {
+          robotDrive.driveCartesian(speed, -speed, 0);
+        }
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]) {
+          robotDrive.driveCartesian(0, -speed, 0);
+        }
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+n[7]) {
+          robotDrive.driveCartesian(-speed, -speed, 0);
+        }
+        else {
+          robotDrive.driveCartesian(0, 0, 0);
+        }
+      }
+    };
+
+    autoBarrel = new Command(){
+      @Override
+      protected boolean isFinished() {
+        // TODO Auto-generated method stub
+        return false;
+      }
+      @Override
+      protected void execute() {
+        double cT = t.get();
+        if (cT < 1) {
+          robotDrive.driveCartesian(0, .5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(.5, .5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(.5, -.5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(-.5, -.5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(-.5, .5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(-.5, -.5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(.5, -.5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(.5, .5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(-.5, .5, 0);
+        }
+        else if (cT < 1) {
+          robotDrive.driveCartesian(0, -.5, 0);
+        }
+        else {
+          robotDrive.driveCartesian(0, 0, 0);
+        }
+      }
+    };
+
     m_chooser.addOption("Auto Right Start", autoRightStartCommand);
     m_chooser.addOption("Auto Left Start", autoLeftStartCommand);
+    m_chooser.addOption("Auto Slalom Start", autoSlalom);
+    m_chooser.addOption("Auto Barrel Start", autoBarrel);
 
     SmartDashboard.putData("Auto mode", m_chooser);
   }

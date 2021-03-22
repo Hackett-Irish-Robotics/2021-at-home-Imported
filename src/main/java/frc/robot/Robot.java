@@ -228,36 +228,49 @@ public class Robot extends TimedRobot {
       protected void execute() {
         //Declare and initialize driveCart time intervals
         double[] n = {0.11,0.325,0.65,0.505,0.38,0.52,0.65,0.47};
+        
+        //interval of time inbetween actions
+        double wait = 0.75;
+
+        //multiplies the array by 2
         for(int i=0; i<n.length; i++){
-          n[i] *= 2;
+          n[i] *= 3;
         }
 
         double speed = 0.25;
 
         double cT = t.get();
       
+        //forward
         if (cT > 0 && cT < n[0]) {
           robotDrive.driveCartesian(0, speed, 0);
         }
-        else if (cT > n[0] && cT < n[0]+n[1]) {
+        //diagonal left
+        else if (cT > n[0]+wait && cT < n[0]+n[1]+(wait)) {
           robotDrive.driveCartesian(-speed, speed, 0);
         }
-        else if (cT > n[0]+n[1] && cT < n[0]+n[1]+n[2]) {
+        //forward
+        else if (cT > n[0]+n[1]+wait && cT < n[0]+n[1]+n[2]+(wait*2)) {
           robotDrive.driveCartesian(0, speed, 0);
         }
-        else if (cT > n[0]+n[1]+n[2] && cT < n[0]+n[1]+n[2]+n[3]) {
+        //diagonal right
+        else if (cT > n[0]+n[1]+n[2]+wait && cT < n[0]+n[1]+n[2]+n[3]+(wait*3)) {
           robotDrive.driveCartesian(speed, speed, 0);
         }
-        else if (cT > n[0]+n[1]+n[2]+n[3] && cT < n[0]+n[1]+n[2]+n[3]+n[4]) {
+        //left
+        else if (cT > n[0]+n[1]+n[2]+n[3]+wait && cT < n[0]+n[1]+n[2]+n[3]+n[4]+(wait*4)) {
           robotDrive.driveCartesian(-speed, 0, 0);
         }
-        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]) {
+        //diagonal right
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+wait && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+(wait*5)) {
           robotDrive.driveCartesian(speed, -speed, 0);
         }
-        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]) {
+        //backwards
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+wait && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+(wait*6)) {
           robotDrive.driveCartesian(0, -speed, 0);
         }
-        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6] && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+n[7]) {
+        //diagonal left
+        else if (cT > n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+wait && cT < n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+n[7]+(wait*7)) {
           robotDrive.driveCartesian(-speed, -speed, 0);
         }
         else {

@@ -226,7 +226,7 @@ public class Robot extends TimedRobot {
       }
       @Override
       protected void execute() {
-        //Declare and initialize driveCart time intervals
+        //Declare and initialize driveCart time intervals for
         double[] n = {0.11,0.325,0.65,0.505,0.38,0.52,0.65,0.47};
         
         //interval of time inbetween actions
@@ -278,6 +278,79 @@ public class Robot extends TimedRobot {
         }
       }
     };
+
+
+    autoBounce = new Command(){
+      @Override
+      protected boolean isFinished() {
+        return false;
+      }
+      @Override
+      protected void execute() {
+        double speed = 0.25;
+        double cT = t.get();
+        double[] stopwatch = {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2};
+        //go forward
+        if (cT > 0 && cT < stopwatch[0]) {
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        //go left
+        else if (cT > stopwatch[0] && cT < stopwatch[1]) {
+          robotDrive.driveCartesian(-speed, 0, 0);
+        }
+        //go right
+        else if (cT > stopwatch[1] && cT < stopwatch[2]) {
+          robotDrive.driveCartesian(speed, 0, 0);
+        }
+        //go forward twice
+        else if (cT > stopwatch[2] && cT < stopwatch[3]) {
+          robotDrive.driveCartesian(0, speed, 0);
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        //go right twice
+        else if (cT > stopwatch[3] && cT < stopwatch[4]) {
+          robotDrive.driveCartesian(speed, 0, 0);
+          robotDrive.driveCartesian(speed, 0, 0);
+        }
+        //go forward
+        else if (cT > stopwatch[4] && cT < stopwatch[5]) {
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        //go left twice
+        else if (cT > stopwatch[5] && cT < stopwatch[6]) {
+          robotDrive.driveCartesian(-speed, 0, 0);
+          robotDrive.driveCartesian(-speed, 0, 0);
+        }
+        //go right twice
+        else if (cT > stopwatch[6] && cT < stopwatch[7]) {
+          robotDrive.driveCartesian(speed, 0, 0);
+          robotDrive.driveCartesian(speed, 0, 0);
+        }
+        //go forward twice
+        else if (cT > stopwatch[7] && cT < stopwatch[8]) {
+          robotDrive.driveCartesian(0, speed, 0);
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        //go left twice
+        else if (cT > stopwatch[8] && cT < stopwatch[9]) {
+          robotDrive.driveCartesian(-speed, 0, 0);
+          robotDrive.driveCartesian(-speed, 0, 0);
+        }
+        //go right
+        else if (cT > stopwatch[9] && cT < stopwatch[10]) {
+          robotDrive.driveCartesian(speed, 0, 0);
+        }
+        //go forward
+        else if (CT > stopwatch[10] && cT < stopwatch[11]) {
+          robotDrive.driveCartesian(0, speed, 0);
+        }
+        //no more movement
+        else {
+          robotDrive.driveCartesian(0, 0, 0);
+        }
+      };
+
+
 
     autoBarrel = new Command(){
       @Override

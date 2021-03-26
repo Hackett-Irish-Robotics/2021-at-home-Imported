@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   // Input and Ouput
   public static OI m_oi;
 
-  Command m_autonomousCommand, autoRightStartCommand, autoLeftStartCommand, autoSlalom, autoBarrel;
+  Command m_autonomousCommand, autoRightStartCommand, autoLeftStartCommand, autoSlalom, autoSlalomLoop, autoBarrel, autoBounce;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   UsbCamera camera1;
@@ -287,70 +287,113 @@ public class Robot extends TimedRobot {
       }
       @Override
       protected void execute() {
-        double speed = 0.25;
+        double speed = 0.5;
+        double zrotation = -0.02;
         double cT = t.get();
-        double[] stopwatch = {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2};
+
+        // double[] stopwatch = {
+        //   1.2, //this is the first one, vertical
+        //   2.4, //horizontal
+        //   3.6,//horizontal
+        //   3.2,//vertical
+        //   4.0,//horizontal
+        //   4.4,//vertical
+        //   5.8,//horizontal
+        //   7.0,//horizontal
+        //   7.4,//vertical
+        //   8.4,//horizontal
+        //   9.2,//horizontal
+        //   9.5,//vertical
+        //   9.7 //vertical
+        // };
+        double[] stopwatch = {
+          0.9, //this is the first one, vertical
+          1.2, //horizontal
+          1.2,//horizontal
+          0.6,//vertical
+          1.2,//horizontal
+          0.6,//vertical
+          1.2,//horizontal
+          2.4,//horizontal
+          0.6,//vertical
+          1.2,//horizontal
+          1.2,//horizontal
+          0.6,//vertical
+          0.6, //vertical
+        };
+
+        //double[] stopwatch2 = {1.2,2.0,2.8,3.2,4.0,4.4,5.8,7.0,7.4,8.4,9.2,9.5,9.7};
+        int j;
+        double[] s = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        for(j = 0; j < stopwatch.length; j++){
+          if ( j == 0){
+            s[j] = 0;
+          }
+        else{
+          s[j] = stopwatch[j-1] + stopwatch[j-1];
+          }
+        }
+
         //go forward
-        if (cT > 0 && cT < stopwatch[0]) {
+        if (cT > s[0] && cT < s[1]) {
           robotDrive.driveCartesian(0, speed, 0);
         }
-        //go left
-        else if (cT > stopwatch[0] && cT < stopwatch[1]) {
-          robotDrive.driveCartesian(-speed, 0, 0);
+        //go left 0.2 to 1.0
+        else if (cT > s[1] && cT < s[2]) {
+          robotDrive.driveCartesian(-speed, 0, zrotation);
         }
-        //go right
-        else if (cT > stopwatch[1] && cT < stopwatch[2]) {
-          robotDrive.driveCartesian(speed, 0, 0);
+        //go right 1.0 to 1.8
+        else if (cT > s[2] && cT < s[3]) {
+          robotDrive.driveCartesian(speed, 0, zrotation);
         }
-        //go forward twice
-        else if (cT > stopwatch[2] && cT < stopwatch[3]) {
-          robotDrive.driveCartesian(0, speed, 0);
-          robotDrive.driveCartesian(0, speed, 0);
+        //go forward two times 1.8 to 2.2
+        else if (cT > s[3] && cT < s[4]) {
+          robotDrive.driveCartesian(0, speed, zrotation);
         }
-        //go right twice
-        else if (cT > stopwatch[3] && cT < stopwatch[4]) {
-          robotDrive.driveCartesian(speed, 0, 0);
-          robotDrive.driveCartesian(speed, 0, 0);
+        //go right two times 2.2 to 3.0
+        else if (cT > s[4] && cT < s[5]) {
+          robotDrive.driveCartesian(speed, 0, zrotation);
         }
-        //go forward
-        else if (cT > stopwatch[4] && cT < stopwatch[5]) {
-          robotDrive.driveCartesian(0, speed, 0);
+        //go forward 3.0 to 3.4
+        else if (cT > s[5] && cT < s[6]) {
+          robotDrive.driveCartesian(0, speed, zrotation);
         }
-        //go left twice
-        else if (cT > stopwatch[5] && cT < stopwatch[6]) {
-          robotDrive.driveCartesian(-speed, 0, 0);
-          robotDrive.driveCartesian(-speed, 0, 0);
+        //go left twice 3.4 to 4.8
+        else if (cT > s[6] && cT < s[7]) {
+          robotDrive.driveCartesian(-speed, 0, zrotation);
         }
-        //go right twice
-        else if (cT > stopwatch[6] && cT < stopwatch[7]) {
-          robotDrive.driveCartesian(speed, 0, 0);
-          robotDrive.driveCartesian(speed, 0, 0);
+        //go right twice 4.8 to 6.4
+        else if (cT > s[7] && cT < s[8]) {
+          robotDrive.driveCartesian(speed, 0, zrotation);
         }
-        //go forward twice
-        else if (cT > stopwatch[7] && cT < stopwatch[8]) {
-          robotDrive.driveCartesian(0, speed, 0);
-          robotDrive.driveCartesian(0, speed, 0);
+        //go forward twice 6.4 to 7.4
+        else if (cT > s[8] && cT < s[9]) {
+          robotDrive.driveCartesian(0, speed, zrotation);
         }
-        //go left twice
-        else if (cT > stopwatch[8] && cT < stopwatch[9]) {
-          robotDrive.driveCartesian(-speed, 0, 0);
-          robotDrive.driveCartesian(-speed, 0, 0);
+        //go left twice 7.4 to 8.2
+        else if (cT > s[9] && cT < s[10]) {
+          robotDrive.driveCartesian(-speed, 0, zrotation);
         }
-        //go right
-        else if (cT > stopwatch[9] && cT < stopwatch[10]) {
-          robotDrive.driveCartesian(speed, 0, 0);
+        //go right 8.2 to 8.5
+        else if (cT > s[10] && cT < s[11]) {
+          robotDrive.driveCartesian(speed, 0, zrotation);
         }
-        //go forward
-        else if (CT > stopwatch[10] && cT < stopwatch[11]) {
-          robotDrive.driveCartesian(0, speed, 0);
+        //go forward 8.5 to 8.7
+        else if (cT > s[11] && cT < s[12]) {
+          robotDrive.driveCartesian(0, speed, zrotation);
+        }
+        //reverse the wheels 8.7 to i dont know (probably the end)
+        else if (cT > s[12] && cT < s[13]) {
+          robotDrive.driveCartesian(0, -speed, 0);
         }
         //no more movement
         else {
           robotDrive.driveCartesian(0, 0, 0);
         }
       };
+    };
 
-
+    
 
     autoBarrel = new Command(){
       @Override
@@ -401,7 +444,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Auto Left Start", autoLeftStartCommand);
     m_chooser.addOption("Auto Slalom Start", autoSlalom);
     m_chooser.addOption("Auto Barrel Start", autoBarrel);
-
+    m_chooser.addOption("Auto Bounce Start", autoBounce);
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 

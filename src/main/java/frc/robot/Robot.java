@@ -227,7 +227,7 @@ public class Robot extends TimedRobot {
       @Override
       protected void execute() {
         //Declare and initialize driveCart time intervals for
-        double[] interval = {3, 3.5, 3, 2.1, 1, 1.9, 1, 2, 3, 1.9, 1, 0.3};
+        double[] interval = {1.5, 3.2, 4.2, 3.2, 1.3, 3.2, 1.4, 3.2, 4.3, 3.2, 1.2, 0.3};
         
         //double[] time = new double[12];
         /*int j;
@@ -254,39 +254,39 @@ public class Robot extends TimedRobot {
       
         //forward
         if (cT > 0 && cT < time[0]) {
-          robotDrive.driveCartesian(0, 0.5*speed, rotation);
-        }
-        //left
-        else if (cT > time[0] && cT < time[1]) {
-          robotDrive.driveCartesian(-0.75*speed, 0, 0.95*rotation);
-        }
-        //forward
-        else if (cT > time[1] && cT < time[2]) {
-          robotDrive.driveCartesian(0, speed, 1.2*rotation);
-        }
-        //right
-        else if (cT > time[2] && cT < time[3]) {
-          robotDrive.driveCartesian(speed, 0, 0);
-        }
-        //forward
-        else if (cT > time[3] && cT < time[4]) {
           robotDrive.driveCartesian(0, speed, rotation);
         }
         //left
+        else if (cT > time[0] && cT < time[1]) {
+          robotDrive.driveCartesian(-speed, 0, 0.8*rotation);
+        }
+        //forward
+        else if (cT > time[1] && cT < time[2]) {
+          robotDrive.driveCartesian(0, speed, 1.3*rotation);
+        }
+        //right
+        else if (cT > time[2] && cT < time[3]) {
+          robotDrive.driveCartesian(speed, 0, rotation);
+        }
+        //forward
+        else if (cT > time[3] && cT < time[4]) {
+          robotDrive.driveCartesian(0, speed, 1.3*rotation);
+        }
+        //left
         else if (cT > time[4] && cT < time[5]) {
-          robotDrive.driveCartesian(-speed, 0, rotation);
+          robotDrive.driveCartesian(-speed, 0, 0.8*rotation);
         }
         //backwards
         else if (cT > time[5] && cT < time[6]) {
-          robotDrive.driveCartesian(0, -speed, -rotation);
+          robotDrive.driveCartesian(0, -speed, -1.2*rotation);
         }
         //right
         else if (cT > time[6] && cT < time[7]) {
-          robotDrive.driveCartesian(speed, 0, 0);
+          robotDrive.driveCartesian(speed, 0, rotation);
         }
         //backwards
         else if (cT > time[7] && cT < time[8]) {
-          robotDrive.driveCartesian(0, -speed, rotation);
+          robotDrive.driveCartesian(0, -speed, 0.5*rotation);
         }
         //left
         else if (cT > time[8] && cT < time[9]) {
@@ -414,7 +414,7 @@ public class Robot extends TimedRobot {
       @Override
       protected void execute() {
         //Declare and initialize driveCart time intervals
-        double[] interval = {2.9, 1.7, 1.2, 1.9, 2.6, 1.7, 1.2, 1.7, 1.9, 1.4, 1.3, 1.5, 4.7, 0.3};
+        double[] interval = {3.1, 2.95, 1.8, 2.9, 3.3, 2.8, 1.8, 2.8, 2.7, 2.4, 2.1, 0.8, 4.2};
 
         double[] time = new double[14];
         for(int j = 0; j < interval.length; j++){
@@ -441,10 +441,10 @@ public class Robot extends TimedRobot {
           robotDrive.driveCartesian(0, speed, 1.1*rotation);
         }
         else if (cT > time[0] && cT < time[1]){
-          robotDrive.driveCartesian(speed, 0, 0);
+          robotDrive.driveCartesian(speed, 0, rotation);//devi added this and it works
         }
         else if (cT > time[1] && cT < time[2]){
-          robotDrive.driveCartesian(0, -speed, rotation);
+          robotDrive.driveCartesian(0, -speed, -rotation);//devi added this and it works
         }
         else if (cT > time[2] && cT < time[3]){
           robotDrive.driveCartesian(-speed, 0, rotation);
@@ -456,7 +456,7 @@ public class Robot extends TimedRobot {
           robotDrive.driveCartesian(-speed, 0, rotation);
         }
         else if (cT > time[5] && cT < time[6]){
-          robotDrive.driveCartesian(0, -speed, 0.9*rotation);
+          robotDrive.driveCartesian(0, -speed, -rotation);//devi added this need to see if it works, already deployed
         }
         else if (cT > time[6] && cT < time[7]){
           robotDrive.driveCartesian(speed, 0, 0);
@@ -477,9 +477,9 @@ public class Robot extends TimedRobot {
           robotDrive.driveCartesian(0, -speed, 1.2*rotation);
         }
         //braking
-        else if (cT > time[12] && cT < time[13]){
-          robotDrive.driveCartesian(0, speed, rotation); //may want to change to full speed for braking
-        }
+        // else if (cT > time[12] && cT < time[13]){
+        //   robotDrive.driveCartesian(0, speed, rotation); //may want to change to full speed for braking
+        // }
         else {
           robotDrive.driveCartesian(0, 0, 0);
         }
@@ -588,7 +588,7 @@ public class Robot extends TimedRobot {
       setMove(-speed, 0, 0);
         break;
       case Right:
-        setMove(speed, 0, 0);
+        setMove(speed, 0, 0); 
         break;
       default:
         break;
@@ -752,7 +752,7 @@ public class Robot extends TimedRobot {
     // Xbox controller A button runs the intake
     if (xbox2.getAButton())
     {
-      intake.setSpeed(-0.5);
+      intake.setSpeed(-1);
     }
     // Xbox controller b Button reverses intake (in case ball gets stuck in intake)
     else if (xbox2.getBButton())

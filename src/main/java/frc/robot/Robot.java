@@ -417,7 +417,7 @@ public class Robot extends TimedRobot {
       protected void execute() {
         //Declare and initialize driveCart time intervals
         //double[] interval = {3.1, 2.95, 1.8, 2.9, 3.3, 2.8, 1.8, 2.8, 2.7, 2.4, 2.1, 0.8, 4.2};
-        double[] interval = {3.1, 2.95, 1.8, 2.9, 3.3, 2.8, 1.8, 2.8, 2.7, 2.4, 2.1, 0.8, 4.2};
+        double[] interval = {2.5, 1.7, 1.2, 1.8, 2.6, 1.9, 1.05, 2.1, 1.7, 2.35, 1.3, 1.7, 3.4, 0.2};
 
         double[] time = new double[14];
         for(int j = 0; j < interval.length; j++){
@@ -444,22 +444,22 @@ public class Robot extends TimedRobot {
           robotDrive.driveCartesian(0, speed, 1.1*rotation);
         }
         else if (cT > time[0] && cT < time[1]){
-          robotDrive.driveCartesian(speed, 0, rotation);//devi added this and it works
+          robotDrive.driveCartesian(speed, 0, rotation);
         }
         else if (cT > time[1] && cT < time[2]){
-          robotDrive.driveCartesian(0, -speed, -rotation);//devi added this and it works
+          robotDrive.driveCartesian(0, -speed, 0);
         }
         else if (cT > time[2] && cT < time[3]){
-          robotDrive.driveCartesian(-speed, 0, rotation);
+          robotDrive.driveCartesian(-speed, 0, 1.1*rotation);
         }
         else if (cT > time[3] && cT < time[4]){
-          robotDrive.driveCartesian(0, speed, 1.1*rotation);
+          robotDrive.driveCartesian(0, speed, 1.4*rotation);
         }
         else if (cT > time[4] && cT < time[5]){
           robotDrive.driveCartesian(-speed, 0, rotation);
         }
         else if (cT > time[5] && cT < time[6]){
-          robotDrive.driveCartesian(0, -speed, -rotation);//devi added this need to see if it works, already deployed
+          robotDrive.driveCartesian(0, -speed, 0);
         }
         else if (cT > time[6] && cT < time[7]){
           robotDrive.driveCartesian(speed, 0, 0);
@@ -474,15 +474,15 @@ public class Robot extends TimedRobot {
           robotDrive.driveCartesian(0, -speed, rotation);
         }
         else if (cT > time[10] && cT < time[11]){
-          robotDrive.driveCartesian(-speed, 0, 0);
+          robotDrive.driveCartesian(-speed, 0, 1.3*rotation);
         }
         else if (cT > time[11] && cT < time[12]){
-          robotDrive.driveCartesian(0, -speed, 1.2*rotation);
+          robotDrive.driveCartesian(0, -speed, 1.3*rotation);
         }
         //braking
-        // else if (cT > time[12] && cT < time[13]){
-        //   robotDrive.driveCartesian(0, speed, rotation); //may want to change to full speed for braking
-        // }
+        else if (cT > time[12] && cT < time[13]){
+          robotDrive.driveCartesian(0, speed, 0); //may want to change to full speed for braking
+        }
         else {
           robotDrive.driveCartesian(0, 0, 0);
         }

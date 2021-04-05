@@ -227,8 +227,10 @@ public class Robot extends TimedRobot {
       @Override
       protected void execute() {
         //Declare and initialize driveCart time intervals for
-        double[] interval = {1.5, 3.2, 4.2, 3.2, 1.3, 3.2, 1.4, 3.2, 4.3, 3.2, 1.2, 0.3};
-        
+        // double[] interval = {1.5, 3.4, 4.4, 3.4, 1.45, 3.4, 1.45, 3.4, 4.3, 3.2, 1.2, 0.3};
+
+        double[] interval = {0.9, 1.7, 3.05, 2, 1.1, 1.7, 1.15, 2.3, 3.0, 2.3, 1, 0.15};
+
         //double[] time = new double[12];
         /*int j;
         for(j = 0; j < interval.length; j++){
@@ -258,15 +260,15 @@ public class Robot extends TimedRobot {
         }
         //left
         else if (cT > time[0] && cT < time[1]) {
-          robotDrive.driveCartesian(-speed, 0, 0.8*rotation);
+          robotDrive.driveCartesian(-1.3*speed, 0, 1.2*rotation);
         }
         //forward
         else if (cT > time[1] && cT < time[2]) {
-          robotDrive.driveCartesian(0, speed, 1.3*rotation);
+          robotDrive.driveCartesian(0, speed, 1.1*rotation);
         }
         //right
         else if (cT > time[2] && cT < time[3]) {
-          robotDrive.driveCartesian(speed, 0, rotation);
+          robotDrive.driveCartesian(speed, 0, 0.7*rotation);
         }
         //forward
         else if (cT > time[3] && cT < time[4]) {
@@ -278,11 +280,11 @@ public class Robot extends TimedRobot {
         }
         //backwards
         else if (cT > time[5] && cT < time[6]) {
-          robotDrive.driveCartesian(0, -speed, -1.2*rotation);
+          robotDrive.driveCartesian(0, -speed, 0);
         }
         //right
         else if (cT > time[6] && cT < time[7]) {
-          robotDrive.driveCartesian(speed, 0, rotation);
+          robotDrive.driveCartesian(speed, 0, 0.4*rotation);
         }
         //backwards
         else if (cT > time[7] && cT < time[8]) {
@@ -414,6 +416,7 @@ public class Robot extends TimedRobot {
       @Override
       protected void execute() {
         //Declare and initialize driveCart time intervals
+        //double[] interval = {3.1, 2.95, 1.8, 2.9, 3.3, 2.8, 1.8, 2.8, 2.7, 2.4, 2.1, 0.8, 4.2};
         double[] interval = {3.1, 2.95, 1.8, 2.9, 3.3, 2.8, 1.8, 2.8, 2.7, 2.4, 2.1, 0.8, 4.2};
 
         double[] time = new double[14];
@@ -749,15 +752,15 @@ public class Robot extends TimedRobot {
       }
     }
 
-    // Xbox controller A button runs the intake
+    // Xbox controller X button runs the intake
     if (xbox2.getAButton())
     {
       intake.setSpeed(-1);
     }
-    // Xbox controller b Button reverses intake (in case ball gets stuck in intake)
+    // Xbox controller A Button reverses intake (in case ball gets stuck in intake)
     else if (xbox2.getBButton())
     {
-      intake.setSpeed(0.5);
+      intake.setSpeed(0.25);
     }
     // Else the motor stops
     else
@@ -765,7 +768,7 @@ public class Robot extends TimedRobot {
       intake.setSpeed(0);
     }
 
-    // Xbox controller X button moves conveyer up 
+    // Xbox controller B button moves conveyer up 
     if (xbox2.getXButton()) 
     {
       conveyer.setSpeed(-1);
